@@ -92,6 +92,30 @@ export const apiGateway = async (req: Request, res: Response, next: NextFunction
     (req as any).apiKey = validKey;
     (req as any).user = { userId: validKey.userId };
     
+    const startTime = Date.now();
+    const originalSuccess = res.success;
+    res.success = (data: any = {}, meta: any = {}) => {
+      res.json({
+        success: true,
+        provider: meta.provider || 'nexapi',
+        latency: Date.now() - startTime,
+        timestamp: new Date().toISOString(),
+        cached: meta.cached || false,
+        result: data
+      });
+    };
+
+    const originalError = res.error;
+    res.error = (code: number, message: string, meta: any = {}) => {
+      res.status(code).json({
+        success: false,
+        error: message,
+        code: code.toString(),
+        provider: meta.provider || 'nexapi',
+        timestamp: new Date().toISOString()
+      });
+    };
+
     UsageAnalytics.create({
       userId: validKey.userId,
       apiKeyId: validKey._id,

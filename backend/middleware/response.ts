@@ -4,14 +4,15 @@ import { Request, Response, NextFunction } from 'express';
 declare global {
   namespace Express {
     interface Response {
-      success: (data?: any, message?: string) => void;
-      error: (code: number, message: string) => void;
+      success: (data?: any, metaOrMessage?: any) => void;
+      error: (code: number, message: string, meta?: any) => void;
     }
   }
 }
 
 export const responseEngine = (req: Request, res: Response, next: NextFunction) => {
-  res.success = (data: any = {}, message: string = '') => {
+  res.success = (data: any = {}, metaOrMessage: any = '') => {
+    let message = typeof metaOrMessage === 'string' ? metaOrMessage : '';
     res.json({
       success: true,
       data,
@@ -19,7 +20,7 @@ export const responseEngine = (req: Request, res: Response, next: NextFunction) 
     });
   };
 
-  res.error = (code: number, message: string) => {
+  res.error = (code: number, message: string, meta: any = {}) => {
     res.status(code).json({
       success: false,
       error: {

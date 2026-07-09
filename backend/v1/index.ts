@@ -13,11 +13,17 @@ import animeRouter from './routes/media/anime.js';
 import stickersRouter from './routes/media/stickers.js';
 import memesRouter from './routes/media/memes.js';
 import imagesRouter from './routes/media/images.js';
+import imageRouter from './routes/image/index.js';
 import mediaMgmtRouter from './routes/media/management.js';
 
 import googleRouter from './routes/google/index.js';
 import uploadRouter from './routes/upload/index.js';
 import storageRouter from './routes/storage/index.js';
+
+import textRouter from './routes/text/index.js';
+import webRouter from './routes/web/index.js';
+import dataRouter from './routes/data/index.js';
+import utilityRouter from './routes/utility/index.js';
 
 const router = Router();
 
@@ -42,5 +48,10 @@ router.use('/media', mediaMgmtRouter);
 router.use('/google', googleRouter);
 router.use('/upload', uploadRouter);
 router.use('/storage', storageRouter);
+router.use('/text', textRouter);
+router.use('/web', webRouter);
+router.use('/', dataRouter);
+router.use('/', utilityRouter);
+router.use('/image', imageRouter);
 
 export default router;
