@@ -1,0 +1,8 @@
+{
+  "name": "Remix: NEXAPI HUB",
+  "description": "A premium API marketplace featuring device-locked authentication, scalable MongoDB architecture, and a futuristic, developer-focused dark glass interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
